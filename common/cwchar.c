@@ -51,3 +51,14 @@ U_CAPI size_t uprv_wcslen(const wchar_t *src) {
 
 #endif
 
+size_t uprv_impl_mbstowcs(wchar_t *pwcs, const char *s, size_t n) {
+   if (pwcs == NULL)
+       return strlen(s);
+
+    return mbsrtowcs(pwcs, &s, n, NULL);
+}
+
+size_t uprv_impl_wcstombs(char *s, const wchar_t *pwcs, size_t n) {
+    return wcsrtombs(s, &pwcs, n, NULL);
+}
+
